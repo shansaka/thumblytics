@@ -1,0 +1,16 @@
+pandas
+scikit-learn
+joblib
+tabulate
+Pillow
+easyocr
+fastapi
+fer
+numpy
+requests
+ultralytics
+uvicorn
+tensorflow
+python-multipart
+
+pytesseract

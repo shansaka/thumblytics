@@ -1,0 +1,352 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.custom_navbar {
+  height: 100px;
+  font-size: 14pt;
+}
+
+.nav-link {
+  margin-right: 20px; /* Adjust the value to your preference */
+}
+
+.home-header {
+  text-align: left;
+}
+
+.Typewriter {
+  font-size: 20pt;
+  font-weight: bold;
+}
+
+.home-section {
+  padding-top: 35px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  height: 400px;
+  width: 400px;
+}
+
+.project-heading {
+  padding: 50px;
+  padding-bottom: 20px;
+}
+
+.tech_badge {
+  margin-right: 5px;
+}
+
+.card {
+  text-align: left;
+}
+
+.card-col {
+  margin-top: 25px;
+}
+
+.skill-heading {
+  padding: 50px;
+  padding-bottom: 20px;
+}
+
+.game-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.header-title {
+  text-align: left;
+}
+
+.new-games-row {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.game-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.rating {
+  background-color: green;
+  color: white;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.rating_game_details {
+  background-color: green;
+  color: white;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  margin-right: 10px;
+}
+
+.game-card {
+  margin-bottom: 25px;
+}
+
+.new-games {
+  margin-bottom: 50px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.game-image-large {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.game-details-div {
+  margin-bottom: 20px;
+}
+
+.game-detail-title {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.game-info-card {
+  height: 400px;
+  padding: 15px;
+}
+
+.review-header {
+  padding-top: 50px;
+  padding-bottom: 10px;
+  text-align: left;
+}
+
+.game-review-title {
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.game-review-date {
+  text-align: right;
+  margin-left: auto;
+}
+
+.game-review-name {
+  text-align: right;
+}
+
+.game-reviews-row {
+  margin-bottom: 50px;
+}
+
+.game-review-card {
+  margin-bottom: 20px;
+}
+
+.review-header-title {
+  padding-left: 10px;
+  font-size: x-large;
+}
+
+.review-add-div {
+  margin-left: auto;
+}
+
+.review-add-btn {
+  background-color: #444262;
+  border: none;
+  width: 200px;
+}
+
+.review-add-btn:hover {
+  background-color: #5c5c7d;
+  border: none;
+}
+
+.review-add-btn:disabled {
+  background-color: #5c5c7d;
+  border: none;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.star-rating {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Youtube */
+.home_container {
+  max-width: 800px;
+}
+
+.welcome_title {
+  font-size: 60px;
+}
+
+.upload-box {
+  /* height: 300px; */
+  border: 2px dashed #cccccc;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  background-color: #f8f9fa;
+  /* margin-bottom: 30px; */
+  padding: 5%;
+}
+
+.upload-box.drag-active {
+  border-color: #007bff;
+}
+
+.upload-content {
+  text-align: center;
+}
+
+.upload-content p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #6c757d;
+}
+
+.upload-content .btn {
+  background-color: #004aad;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.upload-content .btn:hover {
+  background-color: #0d6be5;
+}
+
+.thumbnail-preview {
+  width: 480px;
+}
+
+.frm_rate {
+  text-align: left;
+  align-items: left;
+  margin-top: 30px;
+}
+
+.rate_container {
+  margin-bottom: 100px;
+  background: #ffffff;
+  padding: 5%;
+  border-radius: 2%;
+  box-shadow: 0 30px 30px rgba(0, 0, 0, 0.134);
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.rate-button {
+  width: 100%;
+  padding: 10px;
+}
+
+/*# sourceMappingURL=App.css.map */
+.result-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+}
+
+.thumbnail-image {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.rating-text {
+  color: #6f42c1; /* Purple color */
+  font-weight: bold;
+}
+
+/* .progress-bar {
+  height: 10px;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+} */
+
+.result-table {
+  margin-top: 20px;
+}
+
+.dot {
+  font-size: 20px; /* Adjust size as needed */
+  margin-right: 5px;
+}
+
+.filled-dot {
+  color: rgb(10, 119, 177); /* Color for filled dots */
+}
+
+.unfilled-dot {
+  color: lightgray; /* Color for unfilled dots */
+}
+
+.composition_value {
+  margin-bottom: 0 !important;
+}
+
+.nav_bar {
+  background-color: #004aad !important;
+}
