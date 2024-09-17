@@ -3,6 +3,9 @@ import numpy as np
 from skimage import measure
 from sklearn.cluster import KMeans
 
+import logging
+logger = logging.getLogger(__name__)
+
 # Dictionary of color names and their corresponding hex values
 HEX_COLOR_NAMES = {
     "aliceblue": "#f0f8ff",
@@ -156,80 +159,87 @@ HEX_COLOR_NAMES = {
 
 
 # Function to extract the dominant colors from an image
-def extract_dominant_colors(image, k = 5):
-    # Convert image to RGB from BGR
-    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+def extract_dominant_colors(image, k=5):
+    try:
+        image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        pixels = image_rgb.reshape(-1, 3)
+        kmeans = KMeans(n_clusters=k)
+        kmeans.fit(pixels)
+        dominant_colors = kmeans.cluster_centers_.astype(int)
 
-    # Reshape the image to be a list of pixels
-    pixels = image_rgb.reshape(-1, 3)
-    kmeans = KMeans(n_clusters=k)
-    kmeans.fit(pixels)
+        color_dict = {}
+        for i, color in enumerate(dominant_colors):
+            r, g, b = color
+            color_dict[f'color_{i+1}_r'] = r
+            color_dict[f'color_{i+1}_g'] = g
+            color_dict[f'color_{i+1}_b'] = b
 
-    # Get the RGB values of the dominant colors
-    dominant_colors = kmeans.cluster_centers_
-
-    # Convert the dominant colors to integer format
-    dominant_colors = dominant_colors.astype(int)
-
-    color_dict = {}
-    for i, color in enumerate(dominant_colors):
-        r, g, b = color
-        color_dict[f'color_{i+1}_r'] = r
-        color_dict[f'color_{i+1}_g'] = g
-        color_dict[f'color_{i+1}_b'] = b
-
-    return color_dict
+        return color_dict
+    except Exception as e:
+        logger.error(f"Error extracting dominant colors: {e}")
+        color_dict = {}
+        for i in range(k):
+            color_dict[f'color_{i+1}_r'] = 0
+            color_dict[f'color_{i+1}_g'] = 0
+            color_dict[f'color_{i+1}_b'] = 0
+        return color_dict
 
 # Function to extract the average color of an image
 def extract_brightness_contrast(image):
-    grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    brightness = np.mean(grayscale)
-    brightness_percent = brightness / 255
-
-    contrast = np.std(grayscale) 
-    max_possible_contrast_std = 127.5
-    contrast_percent = (contrast / max_possible_contrast_std) * 100
-    return brightness_percent, contrast_percent
+    try:
+        grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        brightness = np.mean(grayscale)
+        brightness_percent = brightness / 255
+        contrast = np.std(grayscale)
+        max_possible_contrast_std = 127.5
+        contrast_percent = (contrast / max_possible_contrast_std) * 100
+        return brightness_percent, contrast_percent
+    except Exception as e:
+        logger.error(f"Error extracting brightness and contrast: {e}")
+        return 0.0, 0.0
 
 # Function to extract the saturation and hue of an image
 def extract_saturation_and_hue(image):
-    hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    saturation = np.mean(hsv_image[:, :, 1])  
-    hue = np.mean(hsv_image[:, :, 0])    
+    try:
+        hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        saturation = np.mean(hsv_image[:, :, 1])
+        hue = np.mean(hsv_image[:, :, 0])
+        saturation_percent = (saturation / 255) * 100
+        hue_percent = (hue / 179) * 100
+        return saturation_percent, hue_percent
+    except Exception as e:
+        logger.error(f"Error extracting saturation and hue: {e}")
+        return 0.0, 0.0
 
-    saturation_percent = (saturation / 255) * 100
-    hue_percent = (hue / 179) * 100
-
-    return saturation_percent, hue_percent
-
-# Function to extract rgb values of the most common color in the image
+# Function to convert hex color to RGB
 def hex_to_rgb(hex_color):
-    hex_color = hex_color.lstrip('#')
-    return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
+    try:
+        hex_color = hex_color.lstrip('#')
+        return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
+    except Exception as e:
+        logger.error(f"Error converting hex to RGB: {e}")
+        return (0, 0, 0)
 
 # Function to find the closest color name to a RGB value
 def closest_color_name(requested_rgb):
-    min_distance = float('inf')
-    closest_color = None
-    
-    # Assign indices to color names starting from 0
-    color_indices = {name: idx for idx, name in enumerate(HEX_COLOR_NAMES)}
-    
-    for color_name, hex_value in HEX_COLOR_NAMES.items():
-        color_rgb = hex_to_rgb(hex_value)
+    try:
+        min_distance = float('inf')
+        closest_color = None
+        color_indices = {name: idx for idx, name in enumerate(HEX_COLOR_NAMES)}
         
-        # Calculate euclidean distance between the RGB values
-        rd = (color_rgb[0] - requested_rgb[0]) ** 2
-        gd = (color_rgb[1] - requested_rgb[1]) ** 2
-        bd = (color_rgb[2] - requested_rgb[2]) ** 2
-        distance = (rd + gd + bd) ** 0.5
-        
-        # Update the closest color if this one is closer
-        if distance < min_distance:
-            min_distance = distance
-            closest_color = color_name
-            
-    # Get the index of the closest color
-    closest_index = color_indices[closest_color]
-    
-    return closest_index, closest_color
+        for color_name, hex_value in HEX_COLOR_NAMES.items():
+            color_rgb = hex_to_rgb(hex_value)
+            rd = (color_rgb[0] - requested_rgb[0]) ** 2
+            gd = (color_rgb[1] - requested_rgb[1]) ** 2
+            bd = (color_rgb[2] - requested_rgb[2]) ** 2
+            distance = (rd + gd + bd) ** 0.5
+
+            if distance < min_distance:
+                min_distance = distance
+                closest_color = color_name
+
+        closest_index = color_indices[closest_color]
+        return closest_index, closest_color
+    except Exception as e:
+        logger.error(f"Error finding closest color name: {e}")
+        return -1, "unknown"
