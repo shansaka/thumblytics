@@ -1,6 +1,6 @@
 import React from "react";
 
-function AllGamesComp() {
+function Welcome() {
   return (
     <section className="welcome_section">
       <h1 className="welcome_title">Youtube Thumbnail Performance Analyzer</h1>
@@ -12,4 +12,4 @@ function AllGamesComp() {
   );
 }
 
-export default AllGamesComp;
+export default Welcome;

@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import Home from "./app/home";
+import About from "./app/about";
 
 import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
@@ -28,11 +29,8 @@ function App() {
                     <Nav.Link as={NavLink} to="/" activeclassname="active">
                       Thumbnail Rater
                     </Nav.Link>
-                    <Nav.Link as={NavLink} to="/games" activeclassname="active">
+                    <Nav.Link as={NavLink} to="/about" activeclassname="active">
                       About
-                    </Nav.Link>
-                    <Nav.Link as={NavLink} to="/games" activeclassname="active">
-                      Contact
                     </Nav.Link>
                   </>
                 </Nav>
@@ -45,6 +43,7 @@ function App() {
             <Routes>
               <>
                 <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
               </>
             </Routes>
           </Container>
